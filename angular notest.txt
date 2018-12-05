@@ -1,0 +1,101 @@
+ it('should contain 5 customers', () => {
+    let customersEl:HTMLElement[];
+    customersEl = fixture.nativeElement.querySelectorAll(".card");
+    expect(customersEl.length).toBe(5);
+  });
+
+---
+ let component: CustomersComponent;
+  let dataService: DataService;
+  const MockDataService = jasmine.createSpyObj('DataService',['getCustomers']);
+  MockDataService.getCustomers.and.returnValue(of(customers));
+
+ let component: CustomersComponent;
+  let dataService: DataService;
+  const MockDataService = jasmine.createSpyObj('DataService',['getCustomers']);
+  MockDataService.getCustomers.and.returnValue(of(customers));
+
+  let fixture: ComponentFixture<CustomersComponent>;
+  
+  let customerEl;
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ CustomersComponent ],
+      providers: [{provide:DataService,useClass:MockDataService}]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(CustomersComponent);
+    component = fixture.componentInstance;
+    dataService = TestBed.get(DataService);
+   
+  });
+
+
+
+Typescript 2.9 to make Jasmine work
+
+e2e
+it('should display customers ', () => {
+    page.navigateTo();
+    browser.waitForAngular();
+     let customers = element.all(by.css('.card'));
+    // console.log("---->", customers.count()); // returns a Promise
+    expect(customers.count()).toBe(5);
+  });
+
+it('should filter', () => {
+    page.navigateTo();
+    // browser.waitForAngular();
+    let searchInput = element(by.name('searchText'));
+    searchInput.sendKeys('R');
+    // browser.actions()
+    //   .sendKeys(Key.UP).perform();
+ 
+    browser.sleep(1000);
+    let customers = element.all(by.css('.card'));
+    expect(customers.count()).toBeLessThan(5);
+  });  it('should filter', () => {
+    page.navigateTo();
+    // browser.waitForAngular();
+    let searchInput = element(by.id('searchText'));
+    searchInput.sendKeys('Geller');
+    // browser.actions()
+    //   .sendKeys(Key.UP).perform();
+ 
+    browser.sleep(1000);
+    let customers = element.all(by.css('.card'));
+    expect(customers.count()).toBeLessThan(5);
+  });
+
+----
+
+
+Prime NG:
+-------------
+npm install primeng primeicons font-awesome --save
+
+
+styles.css
+
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import "../node_modules/font-awesome/css/font-awesome.min.css";
+@import "../node_modules/primeng/resources/themes/nova-dark/theme.css";
+@import "../node_modules/primeng/resources/primeng.css";
+@import '../node_modules/primeicons/primeicons.css';
+
+---
+
+NVD3:
+npm i --save d3 nvd3 ng2-nvd3
+
+index.html
+
+<link rel="stylesheet" href="../assets/scripts/nv.d3.min.css" />
+<body>
+    <script src="../assets/scripts/jquery.min.js"></script>
+    <script src="../assets/scripts/bootstrap.min.js"></script>
+    <script src="../assets/scripts/d3.min.js" charset="utf-8"></script>
+    <script src="../assets/scripts/nv.d3.min.js"></script>
