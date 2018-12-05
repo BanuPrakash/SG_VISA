@@ -1,0 +1,329 @@
+Spring, Spring Boot and Angular 6
+---------------------------------
+Banuprakash 
+banu@lucidatechnologies.com
+banuprakashc@yahoo.co.in
+CO-Founder: Lucida Technologies Pte Ltd.,
+Partner: Advantech
+..
+FreeLance Corporate Trainer and Consultant to 40+ companies (Adobe, Accenture, CISCO, VISA, Intel, Mindtree, Samsung, ...)
+--------------------------------------------------------------
+https://github.com/BanuPrakash/SG_VISA
+
+Softwares REquired:
+Spring:
+1) JDK 1.8
+2) Eclipse for JEE (NEON, Oxygen+)
+3) MySQL 5 (Community Edition)
+
+Angular:
+1) Node LTS ( 8+ preferably 10)
+2) npm i -g @angular/cli@6
+
+-------------------------------------------------------------
+
+	Spring Framework
+	----------------
+		It's an application framework which provides light-weight container
+		for building enterprise applications.
+
+		1) Spring container manages the life-cycle of objects
+		2) Dependency Injection
+			What is a dependency?
+			Logically if you group classes
+				a) entity/domain/model classes
+				b) DTO classes
+				c) Exception classes [ What went wrong, where and Why?]
+				d) DAO classes [ Data Access Object - CRUD operations]
+				e) Service classes
+				f) Business classes
+				g) UI classes
+
+
+				SOLID Design Principle
+				S => Single Responsibilty
+				O => Open for Extension and Closed for Change
+				L => Liskov Substitution Prinicple
+				I => Interface segregation
+				D => Dependency Injection
+
+		UI -> service --> DAO --> Establish a Database connection
+
+		new SomeService()
+
+		new SomeDAO();
+
+		Connection con = DataSource.getConnection();
+
+
+		UI <- Service <- DAO <- Connection
+
+
+		Spring capabilities
+		1) Dependency Injection
+		2) AOP
+			Aspect Oriented Programming
+			Aspect -> A concern which is not a part of main logic, but can be used 				along with main logic
+					Examples: Logging, Security, Profile, Transaction
+					==> leads to code tangling and scattering
+
+					public void transferFunds(Account from, Account to, double amt) {
+						log.debug("...");
+						isRole("admin");
+						try{
+						userTransaction.begin();
+							//actual code
+							log.debug(...)
+						userTransaction.commit();
+						} catch(...) {
+							userTransaction.rollback();
+							log.error(...)
+						}
+						log.debug(...)
+					}
+
+					Aspects
+						class LogAspect {
+							...
+						}
+						class ProfileAspect {
+							..
+						}
+						class TransactionAspect {
+							...
+						}
+			3) Transaction Management
+				--> Distributed and Declarative Transaction Management
+
+
+					@Transactional
+					public void transferFunds(Account from, Account to, double amt) {
+						// actual business logic
+					}
+			4) EAI
+				Enterprise Application Integration
+					provides many tempatlates to interact with other technologies
+					JDBC, MyBatis, Hibernate, JMS, Mailserver
+----------------------------
+
+	Employee entity  class
+	EmployeeDao interface
+	EmployeeDaoJdbcImpl class
+	EmployeeService
+	Client code
+--------------------------------------------------------
+
+	Spring MVC application
+	Model View Controller
+	DAO --> Using JPA and Hibernate
+		--> Using MyBatis
+
+	JPA --> Java Persistence API
+		is a specification to use ORM [ Object Relational Mapping]
+
+		ORM Frameworks:
+			a) Hibernate - JBoss - RedHAt
+			b) openJPA -- Apache
+			c) KODO -- BEA
+			d) Toplink -- Oracle
+			e) EclipseLink - Eclipse
+
+		Ordering System:
+			Product, Customer, Order, LineItem, Address, Payment
+----------------------------------------------------
+	JPA provides 
+	EntityManager : which manages the entities (classes with @Entity)
+
+	EntityManager is a wrapper for Database connection
+	i.e., it has methods for CRUD operations
+
+	EntityManager is created using EntityManagerFactory
+
+	Steps:
+		1) Need to configure DataSource
+			Vs DriverManager
+		2) Configure EntityManagerFactory
+		3) Configure TransactionManger
+------------------
+
+Spring Manages beans which contains one of these annotations:
+1) @Repository
+2) @Service
+3) @Configuration
+4) @Controller
+5) @RestController
+6) @Component
+
+Spring MVC
+----------
+	Run As->Maven Build
+		Goals --> jetty:run [ Root Context] http://locahost:8080
+		or
+		Goals --> tomcat:run [ need to use context] http://localhost:8080/spring_basic
+
+		<form:form commandName="product" action="addProduct.do">
+		Name <form:input path="name" /> <br />
+		Price <form:input path="price" /> <br />
+		Quantity <form:input path="quantity" /> <br />
+		<button type="submit">Add Product</button>
+	</form:form>
+
+		<form method="post" action="addProduct.do">
+			<input type="text" name="name" />
+			<input type="text" name="price" />
+
+
+		</form>
+
+
+
+		double price = Double.parseDouble(request.getParameter("price"));
+-------------------------------------------------------------------------------------------
+
+	Traditional Web application: Presentation is done using HTML, JSP
+
+	RESTful Web Services:
+
+	REPRESENTATIONAL STATE TRANSFER
+		A Resource resides on server. 
+		A Resource can be database , file system, tangible things like printer
+
+	Resource can be served to clients in various representations like [ XML, JSON, RSS, ATOM, CSV]
+
+	XML:
+		<products>
+			<product id="1">
+				<name>p1</name>
+				<price>232.44</price>
+			</product>
+			<product id="2">
+				<name>p2</name>
+				<price>232.44</price>
+			</product>
+		</products>
+
+	JSON: JavaScript Object Notation
+		Object -> {}
+		array -> []
+		[
+			{
+				"id": 1,
+				"name" : "p1",
+				"price" : 123.22
+			},
+
+			{
+				"id": 2,
+				"name" : "p2",
+				"price" : 123.22
+			}
+
+		]
+
+	RESTful services uses HTTP protocol
+
+	uses URI to identify the resource
+	uses HTTP methods to identify the operations/actions
+	HTTP MEthods:
+		GET, POST, PUT, PATCH, DELETE
+
+			CREATE --> POST
+			READ --> GET
+			UPDATE --> PATCH or PUT
+			DELETE --> DELETE
+
+	Examples:
+			1) GET
+
+				http://server/products
+
+				-> get all products
+
+			2) GET
+
+				http://server/products/4
+
+				-> get product whose id is 4
+
+			3) GET
+
+				http://server/products?category=seafood
+
+				-> get all seafood products
+
+			4) POST
+					http://server/products
+
+					-> payload contains new product to be added to "products" resource
+			5) PUT
+				http://server/products/3
+
+					-> payload contains new product to be update whose id = 3
+			6) DELETE
+				http://server/products/3
+					DELETE a product whose id is 3
+------------------------------------------------------------------------------------------------
+
+	to convert a resource into a representation we need ContentNegotiationHandler
+
+
+	ContentNegotiationHandler converts : Java <---> Representation
+
+	ContentNegotiationHandler uses the following HTTP header details for conversion
+
+	"accept": "application/json" [ Server to Client ]
+
+	"content-type" : "application/json" [ Client to Server ]
+
+	For JSON we have the following popular libraries:
+		a) Jackson
+		b) Jettison
+		c) GSON
+		d) MOXY
+
+
+	public class WebConfig extends WebMvcConfigurerAdapter {
+
+	}
+
+	http://localhost:8080/api/products
+	http://localhost:8080/api/products/2
+---------------------------------------------------
+
+	Spring Boot is a framework which sits on top of Spring Framework
+	Spring Boot is highly opiniated framework.
+		It assumes we use Hibernate for JPA
+		It assumes we use Tomcat as WebServer
+		It simplifies building Restful services
+		It provides spriing-data-jpa which simplifies using JPA
+		It is designed for microservices
+------------------------------------------------
+
+
+	Order JSON:
+
+		{
+			"customer": {
+				"email":"a@visa.com"
+			},
+			"total": 4546,
+			"items": [
+				{
+					"product" : {
+						"id": 2
+					},
+					"quantity": 5,
+					"amount": 63
+				},
+				{
+					"product" : {
+						"id": 3
+					},
+					"quantity": 15,
+					"amount": 6893
+				}
+
+			]
+
+		}
+
