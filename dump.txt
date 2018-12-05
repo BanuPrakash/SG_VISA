@@ -8,3 +8,30 @@ spring.datasource.password=Welcome123
 spring.datasource.driver.class=com.mysql.jdbc.Driver
 
 server.port=8080
+
+
+
+{
+			"customer": {
+				"email":"a@visa.com"
+			},
+			"total": 4546,
+			"items": [
+				{
+					"product" : {
+						"id": 2
+					},
+					"quantity": 5,
+					"amount": 63
+				},
+				{
+					"product" : {
+						"id": 3
+					},
+					"quantity": 15,
+					"amount": 6893
+				}
+
+			]
+
+		}
