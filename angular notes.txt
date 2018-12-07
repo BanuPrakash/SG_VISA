@@ -1,0 +1,201 @@
+
+Angular 6
+---------
+	Node JS -> Platform for Running JavaScript. It's an V8 Engine [ JavaScript Engine]
+
+	chrome --> V8 Engine
+	FireFox -> spiderMonkey
+	IE -> Chakra
+
+	Check if Node is installed and in path:
+	$ node --version
+
+	Check NPM [ Node Package Manager similar to Maven]
+	$ npm --version
+
+	npm i npm -g
+
+	---------------------------------
+
+	JavaScript Version ES2015 ES6 is the version recommended by ECMA for development
+
+	In JavaScript we use "var", "let" keywords to declare a variable
+
+	var name = "Smith";
+	var age = 23;
+
+
+	TypeScript introduced data type on top of JavaScript
+
+	let name:string = "Smith";
+	let age:number = 24;
+
+
+	To Compile TypeScript code to JavaScript we use TypeScript Compiler [tsc]
+
+	tsc a.ts 
+	generates a.js
+
+	---------------------------
+
+	JavaScript Build Tools: GRUNT, GULP, WEBPACK
+
+	--> Things they do: Minify, Uglyfy, bundle it, browserify
+
+	------------------------------
+
+	Single Page Application challenges:
+	1) Handle AJAX Calls
+	2) Caching of Templates
+	3) Handle Routes
+
+		http://localhost:8080
+
+		loads index.html/index.jsp
+
+		http://localhost:8080/products
+		http://localhost:8080/orders
+		http://localhost:8080/products/iPhoneX
+
+		Need different URI for different views
+		Need support to NAvigate [ back and forward ] between views
+	4) Data Binding
+		one way and two way bindings
+
+	Responsive Web Design:
+		Views should adopt to different devices / resolutions
+
+--------------
+	Install Angular CLI build tool
+
+	$ npm i -g @angular/cli@6
+
+	$ ng --version
+
+
+	npm config rm proxy  
+	npm config rm https-proxy  
+
+	---
+	npm i -g json-server
+
+
+	Download Visual Studio Code: https://code.visualstudio.com/
+	--------------
+
+	Frameworks for building Web Applications [ Client Side]	
+	1) Backbone
+	2) ExtJS
+	3) Angular
+	4) React
+	5) Vue
+
+	Angular 1+ [ JavaScript .js]-> doesn't need NodeJS
+
+	Angular 2+ needs NodeJS as development env. NodeJS is not required in
+	production.
+
+	Angular 2+ [.ts] Building Blocks:
+		1) Module
+		2) Component
+		3) Service
+		4) Router
+		5) Pipe
+		6) Guard
+		7) Directive
+
+	----------------------------------
+
+	1) package.json --> similar to pom.xml
+	add dependencies required for the project
+
+	2) Flow
+		a) angular.json has "main.ts" configured as the entry point
+		b) "main.ts" loads or bootstraps AppModule [ Entry Module]
+		c) AppModule contains all resources related to the module
+			i) components : "declarations": [AppComponent, CustomerComponent,...]
+			ii)services : "providers" : [DataService, CustomerService]
+			iii) Include other modules : imports:[BrowserModule, IonicModule,..]
+			--
+			bootstraps the main or entry component
+			AppComponent
+		d) AppComponent
+			has template, styleUrls, selector, state and behivour
+
+	Note:
+		Components has @Componenent decorator
+		Module has @NgModule decorator
+		Services has @Service
+-----------------------------------------------------------------------------
+	Create a new Component:
+	ng g c customers
+
+	-----------
+
+	Module, Component, FormsModule, RouterModule, CanActivate guard
+
+	Services
+-----------------------------------------
+		Testing
+		--> Unit Testing
+			Jasmine, Mocha, Chai, Sinon
+		--> E2E Testing
+			Selenium [ Angular Provides Protractor [ Framework over Selenium ]]
+
+
+		Testing is all about 3As [ Assemble, Action and Assert]
+
+		describe("A Test suite",()=> {
+
+			it("should display a component", () => {
+				// do some action
+				expect(..).to.be(..);
+			});
+
+		});
+------------------------------------------
+	
+	Promise API vs RxJS [ Reactive Programming ] using Observable
+
+	Synchronous calls
+
+	function doTask() {
+
+	}
+
+	let res = doTask(); // this line is blocked
+
+	console.log("done!!"); 
+
+	function doTask() {
+		return new Promise( (resolve, reject) => {
+			setTimeout(reject('All well'), 1000);
+		});
+	}
+
+	doTask().then((data) => {
+		console.log("Success ", data)
+	},
+	(data) => {
+		console.log(":-(" , data);
+	});
+
+	console.log("My Code works!!!");
+
+	Go to CustomerApp folder and install:
+	npm i primeng primeicons font-awesome d3 nvd3 ng2-nvd3 --save
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
