@@ -1,0 +1,101 @@
+ 
+<p-toast position="top-right" ></p-toast>
+
+<p-accordion>
+  <p-accordionTab header="Data tables" [selected]="true">
+      <div class="container">
+          <div class="col-md-6">
+              <p-dataTable [value]="orders" expandableRows="true">
+                  <p-column expander="true" styleClass="col-icon" [style]="{'width':'50px','text-align':'center'}"></p-column>
+                  <p-column field="orderId" header="OrderID" [style]="{'width':'90px','text-align':'center'}"></p-column>
+                  <p-column field="orddate" header="Order Date"></p-column>
+                  <p-column field="supplierName" header="Supplier"></p-column>
+                  <!--<p-column field="status" header="Status"></p-column>-->
+                  <p-column field="orderToal" header="Order Cost" [style]="{'text-align':'right'}"></p-column>
+                  <p-column field="totalLines" header="Order Lines"></p-column>
+                  <!--<p-column field="totalLines" header="Order Lines"></p-column>-->
+                  <p-column styleClass="col-button" [style]="{'width':'10%','text-align':'center'}" header="Status" field="status">
+                
+                    <ng-template let-order="rowData" pTemplate="body">
+                      <div [ngSwitch]="order.status">
+                        <button *ngSwitchCase="'pending'" type="button" pButton icon="fa fa-clock-o">
+                
+                        </button>
+                        <button *ngSwitchCase="'comfirmed'" type="button" pButton icon="fa fa-check">
+                
+                        </button>
+                        <button *ngSwitchDefault type="button" pButton (click)="onWarning(order)" icon="fa fa-warning">
+                
+                        </button>
+                      </div>
+                    </ng-template>
+                  </p-column>
+                
+                  <ng-template let-order pTemplate="rowexpansion">
+                    <div>
+                      <p-dataTable [value]="order.lines" [style]="{'margin-left':'40px'}" [editable]="true">
+                        <p-column field="orderlineId" header="Line Id" [style]="{ 'width':'70px','text-align':'center'}"></p-column>
+                        <p-column field="productName" header="Product"></p-column>
+                        <p-column field="qty" header="Line Qty" [editable]="true"></p-column>
+                        <p-column field="unitPrice" header="Unit price" [style]="{'text-align':'right'}"></p-column>
+                        <p-column field="linePrice" header="Line Total" [style]="{'text-align':'right'}"></p-column>
+                      </p-dataTable>
+                    </div>
+                  </ng-template>
+                
+                </p-dataTable>
+          </div>
+          <div class="col-md-6">
+            <p-dataTable var="emp"   selectionMode="single" 
+                (onRowSelect)="onRowSelectCRUD($event)" [value]="employees" 
+                [paginator]="true" [rows]="2" [pageLinks]="5">
+              <p-column field="firstName" header="First Name"></p-column>
+              <p-column field="lastName" header="Last Name"></p-column>
+              <p-column field="address" header="Address"></p-column>
+              <p-column header="Profile Pic">
+                <ng-template let-employee="rowData" pTemplate>
+                  <p>
+                    <img src="/assets/images/{{employee.gender}}.png" width="50px" />
+                  </p>
+                </ng-template>
+              </p-column>
+              <p-footer>
+                <div class="ui-helper-clearfix" style="width:100%">
+                    <button type="button" pButton class="glyphicon glyphicon-edit" style="float:left" (click)="addEmployee()"
+                            label="Add"></button>
+                </div>
+            </p-footer>
+            </p-dataTable>
+          </div>
+        </div>
+        
+  </p-accordionTab>
+  <p-accordionTab header="Charts" [selected]="true">
+    <app-piechart></app-piechart>
+    <app-barchart></app-barchart>
+  </p-accordionTab>
+</p-accordion>
+
+<p-dialog header="Employee Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade"
+[modal]="true">
+<div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedEmployee">
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-4"><label for="id">Id</label></div>
+    <div class="ui-grid-col-8"><input pInputText id="id" [(ngModel)]="selectedEmployee.id" /></div>
+  </div>
+<div class="ui-grid-row">
+  <div class="ui-grid-col-4"><label for="firstName">First Name</label></div>
+  <div class="ui-grid-col-8"><input pInputText id="firstName" [(ngModel)]="selectedEmployee.firstName"/></div>
+</div>
+<div class="ui-grid-row">
+  <div class="ui-grid-col-4"><label for="address">Address</label></div>
+  <div class="ui-grid-col-8"><input pInputText id="address" [(ngModel)]="selectedEmployee.address"/></div>
+</div>
+</div>
+<p-footer>
+<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+  <button type="button" pButton icon="fa-close"  ></button>
+  <button type="button" pButton icon="fa-check" (click)="save()" ></button>
+</div>
+</p-footer>
+</p-dialog>
