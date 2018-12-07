@@ -1,0 +1,14 @@
+In styles.css:
+
+@import "../node_modules/font-awesome/css/font-awesome.min.css";
+@import "../node_modules/primeng/resources/themes/nova-dark/theme.css";
+@import "../node_modules/primeng/resources/primeng.css";
+@import '../node_modules/primeicons/primeicons.css';
+
+
+In index.html:
+<link rel="stylesheet" href="../assets/scripts/nv.d3.min.css" />
+<script src="../assets/scripts/jquery.min.js"></script>
+    <script src="../assets/scripts/bootstrap.min.js"></script>
+    <script src="../assets/scripts/d3.min.js" charset="utf-8"></script>
+    <script src="../assets/scripts/nv.d3.min.js"></script>
